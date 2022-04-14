@@ -319,16 +319,16 @@ class Summarizer(nn.Module):
         if(type(text) == str):
             text = [text]
         if(type(text) == list):
-            text = texts_to_one_hots(text)
+            text = texts_to_one_hots(text).to(device)
                     
         if(type(image) == np.ndarray):
-            image = torch.from_numpy(image).float()
+            image = torch.from_numpy(image).float().to(device)
         if(len(image.shape) == 2):
             image = image.unsqueeze(0)
         if(len(text.shape) == 1):
             text = text.unsqueeze(0)
         if(len(seed.shape) == 1):
-            seed = seed.unsqueeze(0)
+            seed = seed.unsqueeze(0).to(device)
             
         
         image = image.reshape((image.shape[0], 1, args.image_size, args.image_size)) / 255
